@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,13 +9,21 @@ public class Player : MonoBehaviour
 
     float mainTargetDistance = 100.0f;
 
+    float elapsedTime;
+
+    float fireDelay = 0.15f;
+
     Vector3 moveDir;
 
     Vector3 nextPos;
 
     Vector3 lookVec;
 
-    public Transform mainTarget;
+    Transform mainTarget;
+
+    Transform firePos;
+
+    public GameObject bulletPrefab;
 
     Rigidbody rigid;
 
@@ -25,6 +32,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         mainTarget = null;
+
+        firePos = transform.GetChild(3);
 
         rigid = GetComponent<Rigidbody>();
 
@@ -38,11 +47,21 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
     }
 
+    private void Start()
+    {
+        StartCoroutine(FireRoutine());
+    }
+
     private void OnDisable()
     {
         inputActions.Player.Move.canceled -= OnMove;
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Disable();
+    }
+
+    private void Update()
+    {
+        elapsedTime += Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -96,6 +115,27 @@ public class Player : MonoBehaviour
 
 
         transform.forward = Vector3.Lerp(transform.forward, lookVec, Time.fixedDeltaTime * 10.0f);
+    }
+
+    private IEnumerator FireRoutine()
+    {
+        while (true)
+        {
+            if (elapsedTime > fireDelay)
+            {
+                Fire();
+                elapsedTime = 0.0f;
+            }
+
+            yield return null;
+        }
+    }
+
+    private void Fire()
+    {
+        GameObject bullet = Instantiate(bulletPrefab);
+        bullet.GetComponent<PlayerBullet>().fireDir = transform.forward;
+        bullet.transform.position = firePos.position;
     }
 
     // <InputAction> ==========================================================================
