@@ -18,7 +18,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnEnable()
     {
-        //StartCoroutine(LifeOver());
+        StartCoroutine(LifeOver());
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Wall"))
         {
             gameObject.SetActive(false);
         }

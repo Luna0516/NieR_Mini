@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    float moveSpeed = 3.0f;
+    float moveSpeed = 6.0f;
 
     float mainTargetDistance = 100.0f;
 
     float elapsedTime;
 
-    float fireDelay = 0.15f;
+    float fireDelay = 0.1f;
 
     Vector3 moveDir;
 
@@ -23,11 +23,11 @@ public class Player : MonoBehaviour
 
     Transform firePos;
 
-    public GameObject bulletPrefab;
-
     Rigidbody rigid;
 
     PlayerInputActions inputActions;
+
+    PoolManager poolManager;
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FireRoutine());
+        poolManager = PoolManager.Inst;
     }
 
     private void OnDisable()
@@ -62,6 +62,12 @@ public class Player : MonoBehaviour
     private void Update()
     {
         elapsedTime += Time.deltaTime;
+
+        if (elapsedTime > fireDelay)
+        {
+            Fire();
+            elapsedTime = 0.0f;
+        }
     }
 
     private void FixedUpdate()
@@ -114,28 +120,12 @@ public class Player : MonoBehaviour
         }
 
 
-        transform.forward = Vector3.Lerp(transform.forward, lookVec, Time.fixedDeltaTime * 10.0f);
-    }
-
-    private IEnumerator FireRoutine()
-    {
-        while (true)
-        {
-            if (elapsedTime > fireDelay)
-            {
-                Fire();
-                elapsedTime = 0.0f;
-            }
-
-            yield return null;
-        }
+        transform.forward = Vector3.Lerp(transform.forward, lookVec, Time.fixedDeltaTime * 30.0f);
     }
 
     private void Fire()
     {
-        GameObject bullet = Instantiate(bulletPrefab);
-        bullet.GetComponent<PlayerBullet>().fireDir = transform.forward;
-        bullet.transform.position = firePos.position;
+        poolManager.GetPlayerBullet(transform.forward, firePos.position);
     }
 
     // <InputAction> ==========================================================================
