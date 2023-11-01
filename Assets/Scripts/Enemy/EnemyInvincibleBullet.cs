@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class EnemyBulletB : MonoBehaviour
+public class EnemyInvincibleBullet : MonoBehaviour
 {
-    float moveSpeed = 5.0f;
+    /// <summary>
+    /// 총알의 이동 속도
+    /// </summary>
+    public float moveSpeed = 5.0f;
 
     private void Update()
     {
@@ -19,3 +21,4 @@ public class EnemyBulletB : MonoBehaviour
         }
     }
 }
+

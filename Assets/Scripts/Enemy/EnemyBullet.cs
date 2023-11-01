@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    float moveSpeed = 5.0f;
+    /// <summary>
+    /// 총알의 이동 속도
+    /// </summary>
+    public float moveSpeed = 5.0f;
 
     private void Update()
     {
@@ -13,7 +16,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerBullet") || other.CompareTag("Wall") || other.CompareTag("Player"))
+        if (other.CompareTag("Wall") || other.CompareTag("Player") || other.CompareTag("PlayerBullet"))
         {
             gameObject.SetActive(false);
         }

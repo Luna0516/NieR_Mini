@@ -14,7 +14,25 @@ public class PlayerBullet : MonoBehaviour
     /// </summary>
     float lifeTime = 1.0f;
 
-    public Vector3 fireDir = Vector3.zero;
+    /// <summary>
+    /// 이동 방향
+    /// </summary>
+    Vector3 fireDir;
+
+    /// <summary>
+    /// 이동 방향 설정용 프로퍼티
+    /// </summary>
+    public Vector3 FireDir
+    {
+        set
+        {
+            if(fireDir != value)
+            {
+                fireDir = value;
+                transform.forward = fireDir;
+            }
+        }
+    }
 
     private void OnEnable()
     {
@@ -23,7 +41,6 @@ public class PlayerBullet : MonoBehaviour
 
     private void Update()
     {
-        transform.forward = fireDir;
         transform.position += Time.deltaTime * bulletSpeed * fireDir;
     }
 
