@@ -46,7 +46,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Wall"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("EnemyShield") || other.CompareTag("Wall"))
         {
             gameObject.SetActive(false);
         }

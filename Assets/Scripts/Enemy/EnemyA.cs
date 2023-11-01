@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyA : EnemyBase
 {
+    public System.Action onDie;
+
     private void Update()
     {
         elapsedTIme += Time.deltaTime;
@@ -50,6 +52,8 @@ public class EnemyA : EnemyBase
 
     protected override void Die()
     {
-        gameObject.SetActive(false);
+        base.Die();
+
+        onDie?.Invoke();
     }
 }
