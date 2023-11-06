@@ -64,14 +64,23 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected PoolManager poolManager;
 
+    /// <summary>
+    /// 죽으면 보낼 델리게이트 신호
+    /// </summary>
+    public System.Action onDie;
+
     // 컴포넌트
     Renderer render;
+
+    protected Rigidbody rigid;
+
 
     // < > ========================================================================================
 
     private void Awake()
     {
         render = GetComponent<Renderer>();
+        rigid = GetComponent<Rigidbody>();
 
         Init_Awake();
     }
@@ -81,15 +90,16 @@ public class EnemyBase : MonoBehaviour
         poolManager = PoolManager.Inst;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("PlayerBullet"))
+        if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             OnHit(1);
         }
     }
 
-    // <기타 함수> ====================================================================================
+
+    // <Fuc>    ===================================================================================
 
     /// <summary>
     /// Awake에서 초기화 할 함수
@@ -121,7 +131,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        gameObject.SetActive(false);
+        onDie?.Invoke();
     }
 
     /// <summary>

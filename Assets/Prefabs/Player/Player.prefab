@@ -496,7 +496,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4203
+  m_VersionIndex: 4200
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -981,7 +981,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4206
+  m_VersionIndex: 4203
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4200
+  m_VersionIndex: 4197
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1631,7 +1631,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4563460641611431957}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1, z: 1.3}
@@ -1650,7 +1650,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &4563460640345660447
 MonoBehaviour:
@@ -1664,5 +1664,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c5d7bd15cbc8f4fa797c2741b23cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3165420116990259558, guid: d4e0d7c5bf6854a408ed8ab72c52a5e1,
-    type: 3}
+  moveSpeed: 6
+  fireDelay: 0.1
+  findEnemyDistance: 10
+  materials:
+  - {fileID: 2100000, guid: 3682193f5a6cff5488e4376303d9df58, type: 2}
+  - {fileID: 2100000, guid: f44fe6f47ed034e1199adfdfeb2efa9b, type: 2}

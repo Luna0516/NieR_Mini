@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyA : EnemyBase
+public class EnemyB : EnemyBase
 {
+    Transform parentTr;
+
+
+    // < >  =======================================================================================
+
     private void Update()
     {
         elapsedTIme += Time.deltaTime;
 
-        transform.Rotate(transform.up, Time.deltaTime * rotSpeed);
+        parentTr.Rotate(transform.up, Time.deltaTime * rotSpeed);
 
         if (elapsedTIme > fireDelay)
         {
@@ -17,13 +22,16 @@ public class EnemyA : EnemyBase
         }
     }
 
-    // <기타 함수> ====================================================================================
+
+    // <Fuc>    ===================================================================================
 
     protected override void Init_Awake()
     {
-        rotSpeed = 30.0f;
+        rotSpeed = 40.0f;
         elapsedTIme = 0.0f;
-        fireDelay = 0.75f;
+        fireDelay = 1.5f;
+
+        parentTr = transform.parent;
     }
 
     protected override void Fire()
@@ -52,6 +60,6 @@ public class EnemyA : EnemyBase
     {
         base.Die();
 
-        gameObject.SetActive(false);
+        parentTr.gameObject.SetActive(false);
     }
 }

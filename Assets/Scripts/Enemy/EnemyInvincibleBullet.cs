@@ -13,9 +13,9 @@ public class EnemyInvincibleBullet : MonoBehaviour
         transform.position += Time.deltaTime * moveSpeed * transform.forward;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Wall") || other.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player"))
         {
             gameObject.SetActive(false);
         }

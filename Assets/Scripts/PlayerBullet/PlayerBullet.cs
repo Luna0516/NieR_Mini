@@ -34,11 +34,21 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
+    // 컴포넌트
+    Rigidbody rigid;
+
 
     // < >  =======================================================================================
 
+    private void Awake()
+    {
+        rigid = GetComponent<Rigidbody>();
+    }
+
     private void OnEnable()
     {
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
         StartCoroutine(LifeOver());
     }
 
@@ -47,9 +57,9 @@ public class PlayerBullet : MonoBehaviour
         transform.position += Time.deltaTime * bulletSpeed * fireDir;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("EnemyShield") || other.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("EnemyShield") || collision.gameObject.CompareTag("Wall"))
         {
             StopAllCoroutines();
             gameObject.SetActive(false);

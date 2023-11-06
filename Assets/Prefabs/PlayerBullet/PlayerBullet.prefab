@@ -43,7 +43,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3165420116990259558}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.15
   m_Height: 0.8
@@ -60,10 +60,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1266762570469409670
 MonoBehaviour:
@@ -77,7 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138de910e30c04cf9beaf42e3068aaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireDir: {x: 0, y: 0, z: 0}
+  bulletSpeed: 15
+  lifeTime: 1
 --- !u!1 &3165420117311894866
 GameObject:
   m_ObjectHideFlags: 0

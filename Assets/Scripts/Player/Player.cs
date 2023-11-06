@@ -10,13 +10,19 @@ public class Player : MonoBehaviour
     /// </summary>
     private bool isFireReady = false;
 
+    /// <summary>
+    /// 몸의 조각 개수
+    /// </summary>
     private int bodySize = 3;
 
     /// <summary>
     /// 체력
     /// </summary>
-    private int health = 3;
+    private int health;
 
+    /// <summary>
+    /// 체력 바뀔 때 설정할 프로퍼티
+    /// </summary>
     public int Health
     {
         get => health;
@@ -98,6 +104,11 @@ public class Player : MonoBehaviour
     private GameObject[] bodyObjects;
 
     /// <summary>
+    /// 플레이어 체력이 감소될 때 바뀔 머테리얼들
+    /// </summary>
+    public Material[] materials;
+
+    /// <summary>
     /// 풀매니저
     /// </summary>
     private PoolManager poolManager;
@@ -114,8 +125,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        health = bodySize;
-
         enemyLayer = 1 << LayerMask.NameToLayer("Enemy");
 
         fireCoru = Fire();
@@ -129,11 +138,16 @@ public class Player : MonoBehaviour
             bodyObjects[i] = transform.GetChild(i).gameObject;
         }
 
-        poolManager = PoolManager.Inst;
-
         rigid = GetComponent<Rigidbody>();
 
         inputActions = new PlayerInputActions();
+    }
+
+    private void Start()
+    {
+        poolManager = PoolManager.Inst;
+
+        Health = bodySize;
     }
 
     private void OnEnable()
@@ -173,9 +187,9 @@ public class Player : MonoBehaviour
         Move();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("EnemyBullet"))
+        if(collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy"))
         {
             Health--;
         }
@@ -271,7 +285,8 @@ public class Player : MonoBehaviour
             bodyObjects[i].SetActive(true);
         }
 
-        for(int i = bodySize - 1; i > health - 1; i--)
+        int currentHp = health - 1;
+        for (int i = bodySize - 1; i > currentHp; i--)
         {
             bodyObjects[i].SetActive(false);
         }

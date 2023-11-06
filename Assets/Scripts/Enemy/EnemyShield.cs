@@ -4,12 +4,49 @@ using UnityEngine;
 
 public class EnemyShield : MonoBehaviour
 {
-    public float rotSpeed = 45.0f;
+    /// <summary>
+    /// 맞으면 바뀔 머테리얼들
+    /// </summary>
+    public Material[] materials;
 
-    public float rotDir = -1;
+    // 컴포넌트
+    Renderer[] renderers;
 
-    private void Update()
+    // < >    =====================================================================================
+
+    private void Awake()
     {
-        transform.Rotate(transform.up, Time.deltaTime * rotSpeed * rotDir);
+        renderers = GetComponentsInChildren<Renderer>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerBullet"))
+        {
+            other.gameObject.SetActive(false);
+
+            StopAllCoroutines();
+            StartCoroutine(OnHitEffect());
+        }
+    }
+
+    // <Fuc>    ===================================================================================
+
+    /// <summary>
+    /// 맞으면 깜박이는 이펙트용 코루틴
+    /// </summary>
+    private IEnumerator OnHitEffect()
+    {
+        foreach(Renderer render in renderers)
+        {
+            render.material = materials[1];
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        foreach(Renderer render in renderers)
+        {
+            render.material = materials[0];
+        }
     }
 }
