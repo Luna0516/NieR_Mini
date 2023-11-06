@@ -9,6 +9,6 @@ public class Test_FindEnemy : TestBase
 
     protected override void Test1(InputAction.CallbackContext context)
     {
-        player.Test_FindEnemy();
+        //player.Test_FindEnemy();
     }
 }
