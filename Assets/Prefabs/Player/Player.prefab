@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   fireDelay: 0.1
-  findEnemyDistance: 10
+  findEnemyDistance: 13
   materials:
   - {fileID: 2100000, guid: 3682193f5a6cff5488e4376303d9df58, type: 2}
   - {fileID: 2100000, guid: f44fe6f47ed034e1199adfdfeb2efa9b, type: 2}

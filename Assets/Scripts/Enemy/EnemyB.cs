@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class EnemyB : EnemyBase
 {
-    Transform parentTr;
+    /// <summary>
+    /// 회전 속도
+    /// </summary>
+    public float rotSpeed = 40.0f;
 
+    /// <summary>
+    /// 부모 트랜스폼
+    /// </summary>
+    Transform parentTr;
 
     // < >  =======================================================================================
 
@@ -22,13 +29,12 @@ public class EnemyB : EnemyBase
         }
     }
 
-
     // <Fuc>    ===================================================================================
 
     protected override void Init_Awake()
     {
-        rotSpeed = 40.0f;
-        elapsedTIme = 0.0f;
+        base.Init_Awake();
+
         fireDelay = 1.5f;
 
         parentTr = transform.parent;

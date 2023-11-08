@@ -35,11 +35,6 @@ public class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 회전 속도
-    /// </summary>
-    protected float rotSpeed = 0.0f;
-
-    /// <summary>
     /// 총알 발사 시간 확인용 경과 시간
     /// </summary>
     protected float elapsedTIme = 0.0f;
@@ -47,7 +42,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 총알 발사 딜레이 시간
     /// </summary>
-    protected float fireDelay = 0.0f;
+    public float fireDelay = 0.0f;
 
     /// <summary>
     /// 발사할 총알 종류
@@ -106,7 +101,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void Init_Awake()
     {
-
+        elapsedTIme = 0.0f;
     }
 
     /// <summary>
@@ -137,7 +132,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 맞으면 깜박이는 이펙트용 코루틴
     /// </summary>
-    private IEnumerator OnHitEffect()
+    protected virtual IEnumerator OnHitEffect()
     {
         render.material = materials[1];
 

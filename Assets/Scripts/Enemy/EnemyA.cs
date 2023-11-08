@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnemyA : EnemyBase
 {
+    /// <summary>
+    /// 회전 속도
+    /// </summary>
+    public float rotSpeed = 30.0f;
+
+    // < > ========================================================================================
+
     private void Update()
     {
         elapsedTIme += Time.deltaTime;
@@ -21,8 +28,8 @@ public class EnemyA : EnemyBase
 
     protected override void Init_Awake()
     {
-        rotSpeed = 30.0f;
-        elapsedTIme = 0.0f;
+        base.Init_Awake();
+
         fireDelay = 0.75f;
     }
 
