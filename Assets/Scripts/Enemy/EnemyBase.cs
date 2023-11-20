@@ -65,7 +65,7 @@ public class EnemyBase : MonoBehaviour
     public System.Action onDie;
 
     // 컴포넌트
-    Renderer render;
+    protected Renderer render;
 
     protected Rigidbody rigid;
 
