@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Inst => instance;
 
-    public Player player;
+    private Player player;
 
     public Player Player
     {
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
             return player;
         }
     }
+
+    public Transform playerStartPos;
 
     private void Awake()
     {
