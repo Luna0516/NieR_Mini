@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     public Transform playerStartPos;
 
+    public System.Action onClear;
+
     private void Awake()
     {
         instance = this;

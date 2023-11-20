@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    EnemyBase[] enemyBases;
-
     GameObject limitBlocks;
-    GameObject enemys;
+    protected GameObject[] enemys;
 
     int enemyCount;
 
-    private int EnemyCount
+    protected int enemysNum = 1;
+
+    protected int EnemyCount
     {
         get => enemyCount;
         set
@@ -20,27 +20,35 @@ public class SpawnEnemy : MonoBehaviour
 
             if(enemyCount == 0)
             {
-                limitBlocks.SetActive(false);
+                if (limitBlocks != null)
+                {
+                    limitBlocks.SetActive(false);
+                }
+                onEnemysDie?.Invoke(enemysNum++);
             }
         }
     }
 
-    private void Awake()
+    protected System.Action<int> onEnemysDie;
+
+    protected virtual void Awake()
     {
-        enemyBases = GetComponentsInChildren<EnemyBase>();
+        enemys = new GameObject[enemysNum];
+
+        EnemyBase[] enemyBases = GetComponentsInChildren<EnemyBase>();
 
         enemyCount = enemyBases.Length;
 
-        enemys = transform.GetChild(2).gameObject;
+        enemys[0] = transform.GetChild(2).gameObject;
 
-        enemys.gameObject.SetActive(false);
+        enemys[0].gameObject.SetActive(false);
 
         limitBlocks = transform.GetChild(0).gameObject;
 
         CheckBox checkBox = GetComponentInChildren<CheckBox>();
         checkBox.onCheck += () =>
         {
-            enemys.gameObject.SetActive(true);
+            enemys[0].gameObject.SetActive(true);
 
             foreach (EnemyBase enemy in enemyBases)
             {
