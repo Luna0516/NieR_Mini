@@ -23,6 +23,10 @@ public class EnemyFinal : EnemyBase
     {
         base.Die();
 
+        GameManager.Inst.isClear = true;
+
+        GameManager.Inst.State = GameManager.GameState.End;
+
         gameObject.SetActive(false);
     }
 

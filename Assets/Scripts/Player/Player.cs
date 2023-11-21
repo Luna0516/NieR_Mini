@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     private bool isFireReady = false;
 
     /// <summary>
+    /// 플레이어가 살아 있는지 확인용 변수
+    /// </summary>
+    private bool isAlive = true;
+
+    /// <summary>
     /// 몸의 조각 개수
     /// </summary>
     private int bodySize = 3;
@@ -62,6 +67,16 @@ public class Player : MonoBehaviour
     /// 적을 찾는 범위
     /// </summary>
     public float findEnemyDistance = 10.0f;
+
+    /// <summary>
+    /// 플레이 시간 기록
+    /// </summary>
+    private float playTime = 0.0f;
+
+    /// <summary>
+    /// 플레이 타임 프로퍼티 (get만 가능)
+    /// </summary>
+    public float PlayTime => playTime;
 
     /// <summary>
     /// 움직일 방향
@@ -157,6 +172,9 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.Fire.performed += OnFire;
         inputActions.Player.Fire.canceled += OnFire;
+
+        playTime = 0.0f;
+        isAlive = true;
     }
 
     private void OnDisable()
@@ -171,8 +189,13 @@ public class Player : MonoBehaviour
     private void Update()
     {
         elapsedTime += Time.deltaTime;
+        
+        if (isAlive)
+        {
+            playTime += Time.deltaTime;
+        }
 
-        if(elapsedTime > fireDelay)
+        if (elapsedTime > fireDelay)
         {
             isFireReady = true;
         }
@@ -297,7 +320,13 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Die()
     {
-        Debug.Log("죽음!!!!");
+        if (isAlive)
+        {
+            Debug.Log("죽음!");
+            isAlive = false;
+            GameManager.Inst.isClear = false;
+            GameManager.Inst.State = GameManager.GameState.End;
+        }
     }
 
     /// <summary>
@@ -346,25 +375,5 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(fireCoru);
         }
-    }
-
-
-    // <TestCode>   ================================================================================
-
-    /// <summary>
-    /// 적을 찾는 함수 테스트용
-    /// </summary>
-    public void Test_FindEnemy()
-    {
-        FindEnemy();
-    }
-
-    /// <summary>
-    /// 플레이어 체력 변화 함수 테스트용
-    /// </summary>
-    /// <param name="health"> 변화시킬 값 (-1, 1) </param>
-    public void Test_HP(int health)
-    {
-        Health += health;
     }
 }
