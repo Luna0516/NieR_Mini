@@ -42,6 +42,7 @@ public class EnemyD : EnemyBase
 
         elapsedTIme += Time.deltaTime;
 
+        // 업데이트 vs 코루틴 => 일단 업데이트에서 해보았다.
         if (elapsedTIme > fireDelay)
         {
             Fire();
@@ -77,6 +78,7 @@ public class EnemyD : EnemyBase
 
         fireDir.Normalize();
 
+        // 자신의 총알 종류에 따라 앞으로 발사하는 총알 종류 변경
         switch (bulletType)
         {
             case EnemyBulletType.Normal:

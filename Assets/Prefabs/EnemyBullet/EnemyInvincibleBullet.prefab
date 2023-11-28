@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7258357966046730838}
   - component: {fileID: 7258357966046730837}
   - component: {fileID: -2910970999570528008}
-  - component: {fileID: 1800553247806283029}
+  - component: {fileID: -7884253919638942646}
   m_Layer: 7
   m_Name: EnemyInvincibleBullet
   m_TagString: EnemyBullet
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1800553247806283029
+--- !u!114 &-7884253919638942646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7258357966046730795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e4cad29f7eb34524addaee0bb649965, type: 3}
+  m_Script: {fileID: 11500000, guid: 14a8034564c454c6baecc7a00b66e1bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  type: 2

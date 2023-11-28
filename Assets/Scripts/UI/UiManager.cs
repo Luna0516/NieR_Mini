@@ -18,6 +18,15 @@ public class UiManager : MonoBehaviour
 
         canvasGroup = GetComponent<CanvasGroup>();
 
+        if (!canvasGroup)
+        {
+            Debug.Log("캔버스 그룹 없음");
+        }
+        else
+        {
+            Debug.Log("ooo");
+        }
+
         SetActive(false);
     }
 
@@ -28,9 +37,9 @@ public class UiManager : MonoBehaviour
 
     private void ChangeText(bool isClear, float playTime)
     {
-        SetActive(true);
         clearText.text = isClear ? $"클리어!!!" : $"실패!!!";
         playTimeText.text = $"{playTime:F2}초";
+        SetActive(true);
     }
 
     private void SetActive(bool active)

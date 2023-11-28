@@ -45,6 +45,8 @@ public class PoolManager : MonoBehaviour
     /// </summary>
     public Pool enemyInvincibleBulletPool;
 
+    // List로 작성했는데 다음부터 Queue로 작성하자!
+
     /// <summary>
     /// PlayerBulletPool List
     /// </summary>
@@ -58,7 +60,7 @@ public class PoolManager : MonoBehaviour
     /// <summary>
     /// EnemyInvincibleBulletPool List
     /// </summary>
-    private List<EnemyInvincibleBullet> enemyInvincibleBulletList = new List<EnemyInvincibleBullet>();
+    private List<EnemyBullet> enemyInvincibleBulletList = new List<EnemyBullet>();
 
     // <> =========================================================================================
 
@@ -119,7 +121,7 @@ public class PoolManager : MonoBehaviour
             GameObject enemyBulletObj = Instantiate(enemyInvincibleBulletPool.prefab, enemyInvincibleBulletPool.poolParent);
             enemyBulletObj.name = $"EnemyInvincibleBullet_{i}";
 
-            EnemyInvincibleBullet bullet = enemyBulletObj.GetComponent<EnemyInvincibleBullet>();
+            EnemyBullet bullet = enemyBulletObj.GetComponent<EnemyBullet>();
 
             enemyInvincibleBulletList.Add(bullet);
 
@@ -170,14 +172,14 @@ public class PoolManager : MonoBehaviour
     /// EnemyInvincibleBulletPool 확장 함수 (1개씩 증가)
     /// </summary>
     /// <returns>확장하고 난 풀의 EnemyInvincibleBullet</returns>
-    private EnemyInvincibleBullet ExtendEnemyInvincibleBulletPoolSize()
+    private EnemyBullet ExtendEnemyInvincibleBulletPoolSize()
     {
         enemyInvincibleBulletPool.size++;
 
         GameObject enemyBulletObj = Instantiate(enemyInvincibleBulletPool.prefab, enemyInvincibleBulletPool.poolParent);
         enemyBulletObj.name = $"EnemyInvincibleBulletPool_{enemyInvincibleBulletPool.size}";
 
-        EnemyInvincibleBullet bullet = enemyBulletObj.GetComponent<EnemyInvincibleBullet>();
+        EnemyBullet bullet = enemyBulletObj.GetComponent<EnemyBullet>();
         enemyInvincibleBulletList.Add(bullet);
 
         enemyBulletObj.SetActive(false);
@@ -241,11 +243,11 @@ public class PoolManager : MonoBehaviour
     /// EnemyInvincibleBulletPool에서 비활성화된 EnemyInvincibleBullet 가져오기
     /// </summary>
     /// <returns>현재 List에서 비활성화가 된 EnemyInvincibleBullet (null 리턴시 풀에 남아있는 비활성화 오브젝트 없음)</returns>
-    private EnemyInvincibleBullet GetEnemyInvincibleBullet()
+    private EnemyBullet GetEnemyInvincibleBullet()
     {
-        EnemyInvincibleBullet enemyBullet = null;
+        EnemyBullet enemyBullet = null;
 
-        foreach (EnemyInvincibleBullet bullet in enemyInvincibleBulletList)
+        foreach (EnemyBullet bullet in enemyInvincibleBulletList)
         {
             if (!bullet.gameObject.activeSelf)
             {
@@ -305,7 +307,7 @@ public class PoolManager : MonoBehaviour
     /// <param name="spawnPos">적 총알의 생성 위치</param>
     public void GetEnemyInvincibleBullet(Vector3 moveDir, Vector3 spawnPos)
     {
-        EnemyInvincibleBullet bullet = GetEnemyInvincibleBullet();
+        EnemyBullet bullet = GetEnemyInvincibleBullet();
 
         bullet.transform.forward = moveDir;
 

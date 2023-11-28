@@ -17,6 +17,7 @@ public class EnemyA : EnemyBase
 
         transform.Rotate(transform.up, Time.deltaTime * rotSpeed);
 
+        // 업데이트 vs 코루틴 => 일단 업데이트에서 해보았다.
         if (elapsedTIme > fireDelay)
         {
             Fire();
@@ -24,7 +25,7 @@ public class EnemyA : EnemyBase
         }
     }
 
-    // <기타 함수> ====================================================================================
+    // <Fuc > ====================================================================================
 
     protected override void Init_Awake()
     {
@@ -35,6 +36,7 @@ public class EnemyA : EnemyBase
 
     protected override void Fire()
     {
+        // 총알 타입에 맞춰서 자신의 현재의 up, down, left, right 방향으로 총알 생성해서 날리기
         switch (bulletType)
         {
             case EnemyBulletType.Normal:

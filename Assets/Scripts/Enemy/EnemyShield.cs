@@ -21,6 +21,7 @@ public class EnemyShield : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 플레이어 총알하고 충돌하면 플레이어 총알 비활성화
         if (other.CompareTag("PlayerBullet"))
         {
             other.gameObject.SetActive(false);

@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class SpawnEnemyFinal : SpawnEnemy
 {
+    /// <summary>
+    /// 최종 보스
+    /// </summary>
     EnemyFinal enemyFinal;
 
+    /// <summary>
+    /// 총 소환 횟수
+    /// </summary>
     int finalSpawnCount = 4;
 
     protected override void Awake()
@@ -23,9 +29,13 @@ public class SpawnEnemyFinal : SpawnEnemy
         onEnemysDie += NextSpawn;
 
         CheckBox checkBox = GetComponentInChildren<CheckBox>();
-        checkBox.onCheck += () => NextSpawn(0);
+        checkBox.onCheckBoxIn += () => NextSpawn(0);
     }
 
+    /// <summary>
+    /// 몬스터 웨이브가 다 죽으면 다음 몬스터 웨이브 소환하는 함수
+    /// </summary>
+    /// <param name="num">몇번째 웨이브인지 확인</param>
     private void NextSpawn(int num)
     {
         enemys[num].SetActive(true);
