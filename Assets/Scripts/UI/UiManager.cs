@@ -18,15 +18,6 @@ public class UiManager : MonoBehaviour
 
         canvasGroup = GetComponent<CanvasGroup>();
 
-        if (!canvasGroup)
-        {
-            Debug.Log("캔버스 그룹 없음");
-        }
-        else
-        {
-            Debug.Log("ooo");
-        }
-
         SetActive(false);
     }
 

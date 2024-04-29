@@ -82,6 +82,11 @@ public class Player : MonoBehaviour
     /// 움직일 방향
     /// </summary>
     private Vector3 moveDir;
+    
+    /// <summary>
+    /// 바라볼 방향
+    /// </summary>
+    private Vector3 lookDir = Vector3.right;
 
     /// <summary>
     /// 이동 위치
@@ -242,12 +247,10 @@ public class Player : MonoBehaviour
         }
         else
         {
-            lookVec = moveDir;
+            lookVec = lookDir;
         }
 
-        lookVec.Normalize();
-
-        transform.forward = Vector3.Lerp(transform.forward, lookVec, Time.fixedDeltaTime * 30.0f);
+        transform.forward = lookVec;
     }
 
     /// <summary>
@@ -265,36 +268,43 @@ public class Player : MonoBehaviour
 
         Collider[] targets = Physics.OverlapSphere(transform.position, findEnemyDistance, enemyLayer);
 
-        if (targets.Length > 0)
+        if (targets.Length <= 0) { return; }
+
+        int forSize = targets.Length;
+        for (int i = 0; i < forSize; i++)
         {
-            int forSize = targets.Length;
+            float distance = Vector3.SqrMagnitude(targets[i].transform.position - transform.position);
 
-            for (int i = 0; i < forSize; i++)
+            if (targets[i].CompareTag("Enemy"))
             {
-                float distance = Vector3.SqrMagnitude(targets[i].transform.position - transform.position);
+                if (mainTargetDistance > distance)
+                {
+                    mainTargetDistance = distance;
+                    mainTarget = targets[i].transform;
+                }
 
-                if (targets[i].CompareTag("EnemyBullet"))
-                {
-                    if (bulletTargetDistance > distance)
-                    {
-                        bulletTargetDistance = distance;
-                        bulletTarget = targets[i].transform;
-                    }
-                }
-                else if (targets[i].CompareTag("Enemy"))
-                {
-                    if (mainTargetDistance > distance)
-                    {
-                        mainTargetDistance = distance;
-                        mainTarget = targets[i].transform;
-                    }
-                }
+                continue;
             }
 
-            if (!mainTarget)
+            if (bulletTargetDistance > distance)
             {
-                mainTarget = bulletTarget;
+                bulletTargetDistance = distance;
+                bulletTarget = targets[i].transform;
             }
+
+            /*else if (targets[i].CompareTag("EnemyBullet"))
+            {
+                if (bulletTargetDistance > distance)
+                {
+                    bulletTargetDistance = distance;
+                    bulletTarget = targets[i].transform;
+                }
+            }*/
+        }
+
+        if (mainTarget == null)
+        {
+            mainTarget = bulletTarget;
         }
     }
 
@@ -360,6 +370,8 @@ public class Player : MonoBehaviour
         moveDir.x = inputDir.x;
         moveDir.y = 0;
         moveDir.z = inputDir.y;
+
+        if (moveDir != Vector3.zero) { lookDir = moveDir; };
     }
 
     /// <summary>
